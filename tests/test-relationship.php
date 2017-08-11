@@ -14,7 +14,7 @@ class RelationshipTest extends WP_UnitTestCase {
 	protected function createEvent($args = [])
 	{
 		return Event::create( wp_parse_args($args, [
-			'name' => "Test Event",
+			'title' => "Test Event",
 			'start' => Carbon::now(),
 			'end' => Carbon::tomorrow(),
 		]));

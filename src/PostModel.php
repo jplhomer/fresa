@@ -2,6 +2,8 @@
 
 namespace Fresa;
 
+use Carbon\Carbon;
+
 /**
  * Post Model extends functionality onto the base Model class
  */
@@ -16,17 +18,16 @@ abstract class PostModel extends Model
 	public static $postType = '';
 
 	/**
-	 * Override Model save method to also persist relations
-	 * @return self
+	 * The default keys on post models
+	 * @var array
 	 */
-	public function save()
-	{
-		parent::save();
-
-		$this->persistRelations();
-
-		return $this;
-	}
+	protected $default = [
+		'title',
+		'content',
+		'date',
+		'author',
+		'status',
+	];
 
 	/**
 	 * Inserts a post into the WP DB
@@ -35,12 +36,8 @@ abstract class PostModel extends Model
 	 */
 	protected function insertModel()
 	{
-		$id = wp_insert_post([
-			'post_type' => $this->getPostType(),
-			'post_title' => $this->name,
-			'post_content' => $this->content ?? '',
-			'post_status' => 'publish',
-		], true);
+        $args = ['post_type' => $this->getPostType()] + $this->getDefaultValues();
+		$id = wp_insert_post($args, true);
 
 		if ( is_wp_error($id) ) {
 			throw new \Exception("Error creating model: {$id->get_error_message()}");
@@ -57,11 +54,8 @@ abstract class PostModel extends Model
 	 */
 	protected function persistDefaultFields()
 	{
-		wp_update_post([
-			'ID' => $this->id,
-			'post_title' => $this->name,
-			'post_content' => $this->content ?? '',
-		]);
+        $args = ['ID' => $this->id] + $this->getDefaultValues();
+		wp_update_post($args);
 
 		return $this;
 	}
@@ -72,9 +66,9 @@ abstract class PostModel extends Model
 	 */
 	protected function persistMetaFields()
 	{
-		foreach ($this->keys as $key) {
-			update_post_meta( $this->id, $key, $this->getValueFromCastedAttribute($key, $this->$key) );
-		}
+		collect($this->attributes)->except($this->default)->keys()->each(function($key) {
+			update_post_meta( $this->id, $key, $this->attributes[$key] );
+		});
 
 		return $this;
 	}
@@ -88,24 +82,21 @@ abstract class PostModel extends Model
 	{
 		return new static([
 			'id' => $object->ID,
-			'name' => $object->post_title,
+			'title' => $object->post_title,
 			'content' => $object->post_content,
+			'date' => $object->post_date,
+			'author' => $object->post_author,
+			'status' => $object->post_status,
 		]);
 	}
 
 	/**
 	 * Fetch meta fields and assign them to the instance
-	 * @return self
+	 * @return array of post meta fields
 	 */
 	protected function fetchMetaFields()
 	{
-		foreach ($this->keys() as $key) {
-			if ( $value = get_post_meta( $this->id, $key, true ) ) {
-				$this->$key = $this->castValueForAttribute($key, $value);
-			}
-		}
-
-		return $this;
+        return (array) get_post_meta( $this->id );
 	}
 
 	public static function all()
@@ -149,6 +140,35 @@ abstract class PostModel extends Model
 	public function excerpt()
 	{
 		return wp_trim_words($this->content, 20);
+	}
+
+    public function getDefaultValues()
+    {
+        $values = [];
+        foreach ($this->default as $key) {
+			switch ($key) {
+				case 'status':
+					$value = $this->getAttribute($key) ?: $this->getDefaultStatus();
+					break;
+
+                case 'date':
+                    $value = $this->getAttribute($key) ?: (new Carbon)->toDateTimeString();
+                    break;
+
+				default:
+					$value = $this->getAttribute($key) ?? '';
+					break;
+			}
+
+            $values["post_" . $key] = $value;
+        }
+
+        return $values;
+    }
+
+	public function getDefaultStatus()
+	{
+		return 'publish';
 	}
 
 	/**

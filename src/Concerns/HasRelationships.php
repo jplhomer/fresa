@@ -25,12 +25,6 @@ trait HasRelationships {
 			return $this->relations[$key];
 		}
 
-		// If a taxonomy wasn't passed, we need to build the relation first
-		// via the caller method
-		// $relation = empty($taxonomy) ?
-		// 	$this->$key() :
-		// 	new Relation($this, $taxonomy);
-
 		$relation = $this->$key();
 
 		// Cache the relation
@@ -73,18 +67,5 @@ trait HasRelationships {
 		list($one, $two, $caller) = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 3);
 
 		return $caller['function'];
-	}
-
-	/**
-	 * Persist relations on an object
-	 * @return self
-	 */
-	protected function persistRelations()
-	{
-		foreach ($this->relations as $relation) {
-			$relation->save();
-		}
-
-		return $this;
 	}
 }

@@ -15,6 +15,11 @@ trait CastsAttributes
      */
     protected $casts = [];
 
+    public function hasCastedValue($key)
+    {
+        return array_key_exists($key, $this->casts);
+    }
+
 	/**
 	 * Get the casted value for an attribute
 	 * @param  string $name  Attribute name

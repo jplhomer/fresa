@@ -15,14 +15,13 @@ abstract class Taxonomy extends Model
 	 */
 	protected $taxonomy = '';
 
-	protected $defaultKeys = [
-		'id',
+	protected $default = [
 		'name',
 		'description',
 		'slug',
 	];
 
-	protected $requiredKeys = [
+	protected $required = [
 		'name',
 	];
 
@@ -89,6 +88,16 @@ abstract class Taxonomy extends Model
 		]);
 	}
 
+	public function getDefaultValues()
+	{
+        $values = [];
+        foreach ($this->default as $key) {
+            $values[$key] = $this->getAttribute($key) ?? '';
+        }
+
+        return $values;
+	}
+
 	/**
 	 * Get all terms in a taxonomy
 	 * @return Collection
@@ -106,7 +115,7 @@ abstract class Taxonomy extends Model
 
 	public function fetchMetaFields()
 	{
-		// TODO
+		return [];
 	}
 
 	protected function persistMetaFields()

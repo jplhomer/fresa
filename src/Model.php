@@ -8,7 +8,8 @@ namespace Fresa;
 abstract class Model
 {
 	use Concerns\CastsAttributes,
-		Concerns\HasRelationships;
+		Concerns\HasRelationships,
+		Concerns\HasAttributes;
 
 	/**
 	 * The WP Post ID
@@ -17,14 +18,10 @@ abstract class Model
 	public $id = 0;
 
 	/**
-	 * The default keys on every model
+	 * The reserved keys on every model
 	 * @var Array
 	 */
-	protected $defaultKeys = [
-		'id',
-		'name',
-		'content',
-	];
+	protected $default = [];
 
 	/**
 	 * Does this model exist in the database?
@@ -36,13 +33,7 @@ abstract class Model
 	 * Define a set of required keys to validate against
 	 * @var Array
 	 */
-	protected $requiredKeys = [];
-
-	/**
-	 * Represents properties that can be defined on model
-	 * @var Array
-	 */
-	protected $keys = [];
+	protected $required = [];
 
 	public function __construct($args = [])
 	{
@@ -89,8 +80,8 @@ abstract class Model
 	 */
 	protected function validate()
 	{
-		collect($this->requiredKeys)->each(function($key) {
-			if ( empty($this->$key) ) {
+		collect($this->required)->each(function($key) {
+			if ( empty($this->attributes[$key]) ) {
 				throw new \Exception("A {$key} attribute is required");
 			}
 		});
@@ -129,28 +120,38 @@ abstract class Model
 		return $this->keys;
 	}
 
-	/**
-	 * Hydrate attributes on object from arguments and meta
-	 * @param  array  $args Arguments
-	 * @return self
-	 */
-	protected function hydrate($args = [])
-	{
-		// Step 1: Set up object based on variables passed
-		collect($this->defaultKeys)->merge($this->keys)->each(function($key) use ($args) {
-			$this->$key = $this->castValueForAttribute($key, $args[$key] ?? null);
-		});
-
-		// Step 2: In case we're hydrating an already-persisted model, hydrate
-		// the rest of the properties from post meta. This means some keys from
-		// above are possibly overwritten.
-		if ( !empty($args['id']) ) {
+    /**
+     * Hydrate attributes on object from arguments and meta
+     * @param  array  $args Arguments
+     * @return self
+     */
+    protected function hydrate($args = [])
+    {
+		if (!empty($args['id'])) {
 			$this->exists = true;
-			$this->fetchMetaFields();
+			$this->id = (int) $args['id'];
+			unset($args['id']);
 		}
 
-		return $this;
-	}
+        foreach ($args as $key => $arg) {
+            $this->setAttribute($key, $arg);
+        }
+
+        // Ensure the default keys exists on the object as well
+        foreach ($this->default as $key) {
+            if (empty($this->attributes[$key])) {
+                $this->setAttribute($key, '');
+            }
+        }
+
+        if ($this->exists) {
+            $this->fillExistingMeta($this->fetchMetaFields());
+        }
+
+        return $this;
+    }
+
+    abstract public function getDefaultValues();
 
 	/**
 	 * Fetch meta fields and assign them to object keys
@@ -182,15 +183,26 @@ abstract class Model
 		return serialize($this);
 	}
 
-	/**
-	 * Handle undefined keys by returning relationship objects
-	 * @param  string $key Key
-	 * @return mixed
-	 */
-	public function __get($key)
-	{
-		if (method_exists($this, $key)) {
-			return $this->getRelation($key)->get();
-		}
-	}
+    /**
+     * Dynamically retrieve attributes on the model.
+     *
+     * @param  string  $key
+     * @return mixed
+     */
+    public function __get($key)
+    {
+        return $this->getAttribute($key);
+    }
+
+    /**
+     * Dynamically set attributes on the model.
+     *
+     * @param  string  $key
+     * @param  mixed  $value
+     * @return void
+     */
+    public function __set($key, $value)
+    {
+        $this->setAttribute($key, $value);
+    }
 }

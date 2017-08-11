@@ -15,7 +15,7 @@ class PostModelTest extends WP_UnitTestCase {
 	protected function newEvent($args = [])
 	{
 		return new Event( wp_parse_args($args, [
-			'name' => "Test Event",
+			'title' => "Test Event",
 			'start' => Carbon::now(),
 			'end' => Carbon::tomorrow(),
 		]));
@@ -26,12 +26,12 @@ class PostModelTest extends WP_UnitTestCase {
 		return ($this->newEvent($args))->save();
 	}
 
-	function test_events_can_have_name() {
+	function test_events_can_have_title() {
 		$event = new Event([
-			'name' => "Pit Stop 2017"
+			'title' => "Pit Stop 2017"
 		]);
 
-		$this->assertEquals( "Pit Stop 2017", $event->name );
+		$this->assertEquals( "Pit Stop 2017", $event->title );
 	}
 
 	public function test_events_cannot_have_properties_not_on_whitelist()
@@ -73,7 +73,7 @@ class PostModelTest extends WP_UnitTestCase {
 		$event = Event::find($original->id);
 
 		$this->assertFalse( empty($event) );
-		$this->assertEquals( "Test Event", $event->name );
+		$this->assertEquals( "Test Event", $event->title );
 	}
 
 	public function test_events_are_stored_with_proper_post_type()
@@ -111,12 +111,12 @@ class PostModelTest extends WP_UnitTestCase {
 	{
 		$ev1 = $this->createEvent();
 
-		$ev1->name = "Foo Event";
+		$ev1->title = "Foo Event";
 		$ev1->save();
 
 		$event = Event::find($ev1->id);
 
-		$this->assertEquals("Foo Event", $event->name);
+		$this->assertEquals("Foo Event", $event->title);
 	}
 
 	public function test_content_can_be_persisted()
@@ -164,7 +164,7 @@ class PostModelTest extends WP_UnitTestCase {
 	{
 		for ($i=0; $i < 10; $i++) {
 			$this->createEvent([
-				'name' => "Event $i",
+				'title' => "Event $i",
 			]);
 		}
 
