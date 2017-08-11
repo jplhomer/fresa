@@ -1,6 +1,10 @@
 {
     "name": "jplhomer/fresa",
     "description": "Developing WordPress should be sweet.",
+    "support": {
+        "issues": "https://github.com/jplhomer/fresa/issues",
+        "source": "https://github.com/jplhomer/fresa"
+    },
     "require": {
         "illuminate/support": "^5.4",
         "nesbot/carbon": "^1.22"
