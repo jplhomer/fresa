@@ -1,0 +1,21 @@
+{
+    "name": "jplhomer/fresa",
+    "description": "Developing WordPress should be sweet.",
+    "require": {
+        "illuminate/support": "^5.4",
+        "nesbot/carbon": "^1.22"
+    },
+    "autoload": {
+      "psr-4": {
+        "Fresa\\": "src"
+      }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Josh Larson",
+            "email": "jplhomer@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
