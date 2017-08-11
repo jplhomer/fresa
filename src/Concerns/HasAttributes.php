@@ -2,9 +2,11 @@
 
 namespace Fresa\Concerns;
 
-trait HasAttributes {
+trait HasAttributes
+{
     /**
-     * The attributes in a model
+     * The attributes in a model.
+     *
      * @var array
      */
     protected $attributes = [];
@@ -42,14 +44,16 @@ trait HasAttributes {
     }
 
     /**
-     * Backfill an array of meta to the attributes, if it hasn't been set yet
-     * @param  array $values  Key/value pairs
+     * Backfill an array of meta to the attributes, if it hasn't been set yet.
+     *
+     * @param array $values Key/value pairs
+     *
      * @return self
      */
     public function fillExistingMeta($values)
     {
         foreach ($values as $key => $value) {
-            if (! isset($this->attributes[$key]) ) {
+            if (!isset($this->attributes[$key])) {
                 $this->attributes[$key] = $value[0];
             }
         }
