@@ -151,6 +151,10 @@ abstract class Model
         return $this;
     }
 
+    /**
+     * Provide a method to easily fetch default values from the object for the DB
+     * @var array
+     */
     abstract public function getDefaultValues();
 
 	/**

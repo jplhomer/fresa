@@ -142,6 +142,11 @@ abstract class PostModel extends Model
 		return wp_trim_words($this->content, 20);
 	}
 
+    /**
+     * Get values for the default properties on the PostModel, and in some
+     * cases, convert them into default values.
+     * @return array
+     */
     public function getDefaultValues()
     {
         $values = [];
@@ -166,6 +171,10 @@ abstract class PostModel extends Model
         return $values;
     }
 
+    /**
+     * The default status of a newly-created model
+     * @return string  Valid post_status
+     */
 	public function getDefaultStatus()
 	{
 		return 'publish';

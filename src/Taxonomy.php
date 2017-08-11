@@ -15,12 +15,20 @@ abstract class Taxonomy extends Model
 	 */
 	protected $taxonomy = '';
 
+    /**
+     * The default keys on a Taxonomy
+     * @var array
+     */
 	protected $default = [
 		'name',
 		'description',
 		'slug',
 	];
 
+    /**
+     * Properties that should be required to create a new taxonomy
+     * @var array
+     */
 	protected $required = [
 		'name',
 	];
