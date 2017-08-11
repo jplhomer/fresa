@@ -60,7 +60,7 @@ class Query
 	 */
 	public function where(...$args)
 	{
-		[$key, $value, $compare] = $this->getWhereArgs($args);
+		list($key, $value, $compare) = $this->getWhereArgs($args);
 
 		$this->query['meta_query'][] = [
 			'key' => $key,
@@ -95,7 +95,7 @@ class Query
 	 */
 	protected function getWhereArgs($args)
 	{
-		[$key, $compare] = $args;
+		list($key, $compare) = $args;
 
 		if ( !empty($args[2]) ) {
 			$value = $args[2];
