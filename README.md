@@ -30,7 +30,7 @@ $event->venue = 'Times Square';
 $event->save();
 
 echo $event->id; // 1
-echo $event->venue; // 'Time Square';
+echo $event->venue; // 'Times Square';
 // Same as get_post_meta(1, 'venue', true);
 ```
 
