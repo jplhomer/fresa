@@ -11,8 +11,8 @@ use Fresa\PostModel;
 
 class Event extends PostModel
 {
-	$postType = 'my_custom_post_type';
-	$keys = ['start'];
+    $postType = 'my_custom_post_type';
+    $keys = ['start'];
 }
 ```
 
@@ -38,14 +38,14 @@ And perform queries through a fluent interface:
 ```php
 $event = Event::find(1);
 $events = Event::where('start', '>=', new \DateTime)
-				->order('start', 'asc')
-				->limit(5)
-				->offset(5)
-				->get();
+                ->order('start', 'asc')
+                ->limit(5)
+                ->offset(5)
+                ->get();
 
 // Queries return an instance of \Illuminate\Support\Collection
 $events->each(function($event) {
-	echo $event->title;
+    echo $event->title;
 });
 ```
 
