@@ -34,6 +34,7 @@ class Query
 	protected $defaultModelKeys = [
 		'post_title',
         'author',
+		'date',
 	];
 
 	/**

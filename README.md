@@ -12,7 +12,6 @@ use Fresa\PostModel;
 class Event extends PostModel
 {
     $postType = 'my_custom_post_type';
-    $keys = ['start'];
 }
 ```
 
@@ -27,23 +26,28 @@ Interact with your post in an object-oriented fashion:
 ```php
 $event = new Event;
 $event->title = 'Hello World.';
-$event->start = new \DateTime;
+$event->venue = 'Times Square';
 $event->save();
 
 echo $event->id; // 1
+echo $event->venue = 'Time Square';
+// Same as get_post_meta(1, 'venue', true);
 ```
 
 And perform queries through a fluent interface:
 
 ```php
 $event = Event::find(1);
-$events = Event::where('start', '>=', new \DateTime)
-                ->order('start', 'asc')
+$events = Event::where('venue', 'Times Square')
+                ->order('date', 'asc')
                 ->limit(5)
                 ->offset(5)
                 ->get();
+```
 
-// Queries return an instance of \Illuminate\Support\Collection
+Queries return a [Collection instance](https://laravel.com/docs/5.4/collections):
+
+```php
 $events->each(function($event) {
     echo $event->title;
 });
