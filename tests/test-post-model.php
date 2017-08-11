@@ -34,16 +34,6 @@ class PostModelTest extends WP_UnitTestCase {
 		$this->assertEquals( "Pit Stop 2017", $event->title );
 	}
 
-	public function test_events_cannot_have_properties_not_on_whitelist()
-	{
-		// Replace this with some actual testing code.
-		$event = new Event([
-			'foo' => "Soup"
-		]);
-
-		$this->assertTrue( empty($event->foo) );
-	}
-
 	public function test_events_can_have_a_start_and_end()
 	{
 		$start = Carbon::today();
