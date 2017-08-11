@@ -46,7 +46,7 @@ class PostModelTest extends WP_UnitTestCase {
 
 	public function test_events_can_have_a_start_and_end()
 	{
-		$start = Carbon::now();
+		$start = Carbon::today();
 		$end = Carbon::tomorrow();
 
 		$event = new Event([
