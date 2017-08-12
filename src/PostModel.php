@@ -29,6 +29,7 @@ abstract class PostModel extends Model
         'date',
         'author',
         'status',
+        'excerpt',
     ];
 
     /**
@@ -93,6 +94,7 @@ abstract class PostModel extends Model
             'date'    => $object->post_date,
             'author'  => $object->post_author,
             'status'  => $object->post_status,
+            'excerpt' => $object->post_excerpt,
         ]);
     }
 
