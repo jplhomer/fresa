@@ -110,6 +110,8 @@ class Columns
         $settings = $this->args['columns'][$column];
         if (!empty($settings['value']) && is_callable($settings['value'])) {
             echo $settings['value']($instance);
+        } else {
+            echo $instance->$column ?? '';
         }
     }
 

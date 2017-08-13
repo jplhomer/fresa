@@ -1,4 +1,4 @@
-# Defining Post Models
+# Post Models
 
 Post Models are the bread and butter of Fresa. They allow you to take an ordinary WordPress post type and treat it like a first-class object-oriented citizen.
 
@@ -91,3 +91,26 @@ The default post status for new models is `publish`. You can change the default 
 This feature has not yet been added to Fresa. In the meantime, you can use the existing WordPress function `wp_delete_post`:
 
     wp_delete_post($event->id);
+
+## Custom Post Type Registration
+
+In order to interface with a custom post type in the WordPress admin interface, you need to register it. With Fresa, you can register a custom post type with a single line of code:
+
+    Event::register();
+
+When using the `register()` method, Fresa requires you to have a custom `$postType` variable set.
+
+By default, Fresa will use the name of the class as the post type label. If you'd like to customize the post type label, which is used throughout the WordPress admin, set `$postTypeName` to a string:
+
+    class Event extends PostModel
+    {
+        $postType = 'event';
+        $postTypeName = 'Company Event';
+    }
+
+You can override any of the options or labels registered with the post type as an argument to the method:
+
+    Event::register([
+        'supports' => ['title', 'editor', 'thumbnail'],
+        'show_in_nav_menus' => false,
+    ]);
