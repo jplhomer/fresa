@@ -6,7 +6,7 @@ To use Fresa's Post Model interface, create a new sublass of `Fresa\PostModel`. 
 
     use Fresa\PostModel;
 
-    class Event extends Post Model
+    class Event extends PostModel
     {
         // Optionally define the post type
         public static $postType = 'event';
