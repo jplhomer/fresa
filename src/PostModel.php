@@ -16,7 +16,7 @@ abstract class PostModel extends Model
      *
      * @var string
      */
-    public static $postType = '';
+    public static $postType = 'post';
 
     /**
      * The default keys on post models.
