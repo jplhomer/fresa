@@ -10,7 +10,7 @@ Define a taxonomy by extending the base class:
 
     class EventCategory extends Taxonomy
     {
-        $taxonomy = 'event_category';
+        protected $taxonomy = 'event_category';
     }
 
 You can then interact with the taxonomy in an object-oriented fashion:

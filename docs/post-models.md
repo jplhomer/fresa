@@ -104,8 +104,8 @@ By default, Fresa will use the name of the class as the post type label. If you'
 
     class Event extends PostModel
     {
-        $postType = 'event';
-        $postTypeName = 'Company Event';
+        protected $postType = 'event';
+        protected $postTypeName = 'Company Event';
     }
 
 You can override any of the options or labels registered with the post type as an argument to the method:
