@@ -16,7 +16,7 @@ abstract class PostModel extends Model
      *
      * @var string
      */
-    public static $postType = 'post';
+    protected $postType = 'post';
 
     /**
      * The default keys on post models.
@@ -130,7 +130,7 @@ abstract class PostModel extends Model
      */
     public function getPostType()
     {
-        return static::$postType;
+        return $this->postType;
     }
 
     /**

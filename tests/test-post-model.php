@@ -145,7 +145,7 @@ class PostModelTest extends WP_UnitTestCase
     {
         $postTypes = get_post_types();
 
-        $this->assertTrue(array_key_exists(Event::$postType, $postTypes));
+        $this->assertTrue(array_key_exists((new Event)->getPostType(), $postTypes));
     }
 
     public function test_events_can_be_paginated()

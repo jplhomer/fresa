@@ -37,7 +37,7 @@ class Event extends PostModel
      *
      * @var string
      */
-    public static $postType = 'event';
+    protected $postType = 'event';
 
     /**
      * Define a relationship to Category.

@@ -2,14 +2,14 @@
 
 Post Models are the bread and butter of Fresa. They allow you to take an ordinary WordPress post type and treat it like a first-class object-oriented citizen.
 
-To use Fresa's Post Model interface, create a new sublass of `Fresa\PostModel`. For this example, we will assume you are building an events plugin.
+To use Fresa's Post Model interface, create a new subclass of `Fresa\PostModel`. For this example, we will assume you are building an events plugin.
 
     use Fresa\PostModel;
 
     class Event extends PostModel
     {
         // Optionally define the post type
-        public static $postType = 'event';
+        protected $postType = 'event';
     }
 
 Once your subclass is defined, you can begin interacting with the existing WordPress data model right away.

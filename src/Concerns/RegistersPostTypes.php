@@ -34,7 +34,7 @@ trait RegistersPostTypes
 
     public function registerPostTypeHook()
     {
-        register_post_type(static::$postType, wp_parse_args($this->postTypeArgs, [
+        register_post_type($this->getPostType(), wp_parse_args($this->postTypeArgs, [
             'labels'                => $this->getPostTypeLabels(),
             'public'                => true,
             'hierarchical'          => false,
@@ -46,7 +46,7 @@ trait RegistersPostTypes
             'query_var'             => true,
             'menu_icon'             => 'dashicons-admin-post',
             'show_in_rest'          => true,
-            'rest_base'             => static::$postType,
+            'rest_base'             => $this->getPostType(),
             'rest_controller_class' => 'WP_REST_Posts_Controller',
         ]));
     }
