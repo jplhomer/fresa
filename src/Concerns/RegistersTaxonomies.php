@@ -120,7 +120,7 @@ trait RegistersTaxonomies
     public function getTaxonomyPostTypes()
     {
         return collect($this->taxonomyPostModels)->map(function ($model) {
-            return $model::$postType;
+            return (new $model)->getPostType();
         })->toArray();
     }
 
