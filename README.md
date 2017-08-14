@@ -2,7 +2,7 @@
 
 **🍓 Developing WordPress should be sweet.**
 
-Use Fresa in your plugins and themes to make interacting with the WordPress ecosystem friendly and fast.
+Use [Fresa](https://fresa.jplhomer.org) in your plugins and themes to make interacting with the WordPress ecosystem friendly and fast.
 
 Tested on **WordPress 4.8** and requires **PHP 7+**. Your mileage may vary.
 
@@ -58,3 +58,5 @@ $events->each(function($event) {
 ```sh
 composer require jplhomer/fresa
 ```
+
+**[Read the full documentation here](https://fresa.jplhomer.org)**.
