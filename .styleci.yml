@@ -1,0 +1,6 @@
+preset: recommended
+disabled:
+  - new_with_braces
+finder:
+  exclude:
+    - "tests"
