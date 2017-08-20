@@ -3,7 +3,6 @@
  * Class PostModelTest.
  */
 use Carbon\Carbon;
-
 use Fresa\PostModel;
 
 /**
@@ -196,8 +195,11 @@ class PostModelTest extends WP_UnitTestCase
 }
 
 /**
- * Test class definitions
+ * Test class definitions.
  */
-
-class Student extends PostModel{}
-class CourseRecord extends PostModel{}
+class Student extends PostModel
+{
+}
+class CourseRecord extends PostModel
+{
+}
