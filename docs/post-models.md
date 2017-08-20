@@ -114,3 +114,13 @@ You can override any of the options or labels registered with the post type as a
         'supports' => ['title', 'editor', 'thumbnail'],
         'show_in_nav_menus' => false,
     ]);
+
+## Helpers
+
+Fresa provides various helper methods on `PostModel` objects which are shortcuts to existing WordPress functionality:
+
+    $event->permalink(); // https://foo.bar/baz
+    // Same as:
+    get_permalink($event->ID);
+
+>**Note**: More helpers will be added in the future. In the meantime, feel free to add your own helpers to your child class. Submit a pull request if you think it would help others!
