@@ -6,15 +6,21 @@ To use Fresa's Post Model interface, create a new subclass of `Fresa\PostModel`.
 
     use Fresa\PostModel;
 
-    class Event extends PostModel
-    {
-        // Optionally define the post type
-        protected $postType = 'event';
-    }
+    class Event extends PostModel{}
 
 Once your subclass is defined, you can begin interacting with the existing WordPress data model right away.
 
-If you don't define a custom post type, Fresa assumes the default post type of `post`.
+## Post Types
+
+If you don't define a custom post type, Fresa will use the snake-case version of the class name. If you want to define a custom post type slug, update the `$postType` property:
+
+    use Fresa\PostModel;
+
+    class Event extends PostModel
+    {
+        // Optionally define the post type
+        protected $postType = 'custom_event';
+    }
 
 ## Accessing Default Properties
 
