@@ -198,7 +198,7 @@ abstract class Model
     }
 
     /**
-     * Deletes a model
+     * Deletes a model.
      *
      * @return self
      */

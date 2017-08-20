@@ -89,13 +89,14 @@ abstract class PostModel extends Model
      * Returns a new instantiated PostModel.
      * Returns null if the object is false, or could not be found.
      *
-     * @param  mixed $object
+     * @param mixed $object
+     *
      * @return PostModel
      */
     public function newFromObject($object)
     {
         if (empty($object)) {
-            return null;
+            return;
         }
 
         return new static([
@@ -125,7 +126,7 @@ abstract class PostModel extends Model
     }
 
     /**
-     * Delete a PostModel. Parent class handles cleanup, etc
+     * Delete a PostModel. Parent class handles cleanup, etc.
      *
      * @return self
      */
@@ -181,7 +182,6 @@ abstract class PostModel extends Model
     {
         return wp_trim_words($this->content, 20);
     }
-
 
     /**
      * Get values for the default properties on the PostModel, and in some
