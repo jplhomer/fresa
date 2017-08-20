@@ -98,7 +98,7 @@ abstract class Taxonomy extends Model
     public function newFromObject($object)
     {
         if (empty($object)) {
-            return null;
+            return;
         }
 
         return new static([
