@@ -3,6 +3,7 @@
 namespace Fresa;
 
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 /**
  * Post Model extends functionality onto the base Model class.
@@ -16,7 +17,7 @@ abstract class PostModel extends Model
      *
      * @var string
      */
-    protected $postType = 'post';
+    protected $postType = '';
 
     /**
      * The default keys on post models.
@@ -158,7 +159,13 @@ abstract class PostModel extends Model
      */
     public function getPostType()
     {
-        return $this->postType;
+        $postType = $this->postType;
+
+        if (empty($this->postType)) {
+            return Str::snake(static::class);
+        }
+
+        return $postType;
     }
 
     /**
