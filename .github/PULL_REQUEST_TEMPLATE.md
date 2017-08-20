@@ -8,3 +8,6 @@ What does this Pull Request accomplish?
 
 ### Tests
 Did you write new tests? Why or why not?
+
+### Docs
+Did you update the docs?
