@@ -37,6 +37,12 @@ Use the `find` method to retrieve a single taxonomy term:
 
 > **Note**: Taxonomy term meta is not yet enabled via Fresa.
 
+## Deleting Taxonomy Models
+
+To delete taxonomy models, use the `delete` method:
+
+    $category->delete();
+
 ## Taxonomy Registration
 
 In order to interface with a taxonomy in the WordPress admin interface, you need to register the taxonomy.
