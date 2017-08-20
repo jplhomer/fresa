@@ -90,4 +90,18 @@ class TaxonomyTest extends WP_UnitTestCase
         $this->assertCount(1, $cats);
         $this->assertEquals($cat->id, $cats->first()->id);
     }
+
+    public function test_categories_can_be_deleted()
+    {
+        $cat = Category::create([
+            'name' => 'Foo',
+        ]);
+        $id = $cat->id;
+
+        $cat->delete();
+
+        $this->assertFalse($cat->exists);
+        $this->assertNull(Category::find($id));
+        $this->assertNull($cat->id);
+    }
 }

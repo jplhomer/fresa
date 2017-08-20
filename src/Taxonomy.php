@@ -93,10 +93,14 @@ abstract class Taxonomy extends Model
      *
      * @param WP Category $object
      *
-     * @return Category
+     * @return Category, or null
      */
     public function newFromObject($object)
     {
+        if (empty($object)) {
+            return null;
+        }
+
         return new static([
             'id'          => $object->term_id,
             'name'        => $object->name,
@@ -140,6 +144,22 @@ abstract class Taxonomy extends Model
     protected function persistMetaFields()
     {
         // TODO
+    }
+
+    /**
+     * Deletes the taxonomy term.
+     *
+     * @return self
+     */
+    public function delete()
+    {
+        if (!$this->exists) {
+            return false;
+        }
+
+        wp_delete_term($this->id, $this->getTaxonomy());
+
+        return parent::delete();
     }
 
     /**
