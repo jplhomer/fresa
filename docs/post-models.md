@@ -88,9 +88,9 @@ The default post status for new models is `publish`. You can change the default 
 
 ## Deleting Models
 
-This feature has not yet been added to Fresa. In the meantime, you can use the existing WordPress function `wp_delete_post`:
+To delete models, use the `delete` method:
 
-    wp_delete_post($event->id);
+    $event->delete();
 
 ## Custom Post Type Registration
 

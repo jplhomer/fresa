@@ -167,4 +167,16 @@ class PostModelTest extends WP_UnitTestCase
         $this->assertCount(5, $moreEvents);
         $this->assertCount(0, $events->intersect($moreEvents));
     }
+
+    public function test_post_models_can_be_deleted()
+    {
+        $event = $this->createEvent();
+        $id = $event->id;
+
+        $event->delete();
+
+        $this->assertFalse($event->exists);
+        $this->assertNull(Event::find($id));
+        $this->assertNull($event->id);
+    }
 }

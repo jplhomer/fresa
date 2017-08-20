@@ -85,8 +85,20 @@ abstract class PostModel extends Model
         return $this->newFromObject(get_post($id));
     }
 
+    /**
+     * Returns a new instantiated PostModel.
+     * Returns null if the object is false, or could not be found.
+     *
+     * @param mixed $object
+     *
+     * @return PostModel
+     */
     public function newFromObject($object)
     {
+        if (empty($object)) {
+            return;
+        }
+
         return new static([
             'id'      => $object->ID,
             'title'   => $object->post_title,
@@ -111,6 +123,22 @@ abstract class PostModel extends Model
     public static function all()
     {
         return (new static())->newQuery()->get();
+    }
+
+    /**
+     * Delete a PostModel. Parent class handles cleanup, etc.
+     *
+     * @return self
+     */
+    public function delete()
+    {
+        if (!$this->exists) {
+            return false;
+        }
+
+        wp_delete_post($this->id);
+
+        parent::delete();
     }
 
     /**

@@ -198,6 +198,19 @@ abstract class Model
     }
 
     /**
+     * Deletes a model.
+     *
+     * @return self
+     */
+    public function delete()
+    {
+        $this->id = null;
+        $this->exists = false;
+
+        return $this;
+    }
+
+    /**
      * Provide a way to move this to a string.
      *
      * @return string
