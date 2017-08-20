@@ -3,6 +3,8 @@
  * Class TaxonomyTest.
  */
 
+use Fresa\Taxonomy;
+
 /**
  * Sample test case.
  */
@@ -104,4 +106,22 @@ class TaxonomyTest extends WP_UnitTestCase
         $this->assertNull(Category::find($id));
         $this->assertNull($cat->id);
     }
+
+    public function test_taxonomy_can_be_inferred()
+    {
+        $cat = new Category;
+        $this->assertEquals('my_category', $cat->getTaxonomy());
+
+        $t = new Tag;
+        $this->assertEquals('tag', $t->getTaxonomy());
+
+        $d = new DevelopmentType;
+        $this->assertEquals('development_type', $d->getTaxonomy());
+    }
 }
+
+/**
+ * Test classes
+ */
+class Tag extends Taxonomy {}
+class DevelopmentType extends Taxonomy {}
