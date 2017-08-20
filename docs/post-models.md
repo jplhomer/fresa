@@ -83,6 +83,45 @@ You can instantiate and persist a model in one easy step using the static `creat
     $event->title; // "My fun event"
     $event->id; // 123
 
+## Required Attributes
+
+By default, no attributes are required on a `PostModel`. However, you may require an attribute to be set before a model can be saved. Update the `$required` property to do so:
+
+    use Fresa\PostModel;
+
+    class Event extends PostModel
+    {
+        protected $required = [
+            'title',
+            'start',
+        ];
+    }
+
+    Event::create(); // Throws Exception
+
+    Event::create([ // Throws Exception
+        'title' => "My fun event",
+    ]);
+
+    Event::create([ // Success!
+        'title' => "My fun event",
+        'start' => "today",
+    ]);
+
+Note that both WordPress-default fields and meta fields can be marked as required.
+
+### Validation
+
+If you want to validate a model instance before attempting to save it, you can use the `validate` method on the model:
+
+    $event = new Event([
+        'title' => "My fun event",
+    ]);
+    $event->validate(); // false
+
+    $event->start = 'today';
+    $event->validate(); // true
+
 ### Post Status
 
 The default post status for new models is `publish`. You can change the default post status by overriding the `getDefaultStatus()` method on your model:

@@ -35,6 +35,25 @@ If you want to customize the taxonomy slug, set the `$taxonomy` variable on the 
         protected $taxonomy = 'my_event_category';
     }
 
+## Required Attributes
+
+By default, `Taxonomy` requires that a `name` be defined on the model before it can be saved.
+
+    EventCategory::create(); // Throws Exception
+    EventCategory::create(['name' => "Fun Parties"]); // Success!
+
+You can modify or extend the required attributes on your model using the `$required` property:
+
+    use Fresa\Taxonomy;
+
+    class EventCategory extends Taxonomy
+    {
+        protected $required = [
+            'name',
+            'description',
+        ];
+    }
+
 ## Querying Taxonomy Terms
 
 You can also perform basic queries of taxonomy terms:
