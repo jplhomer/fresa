@@ -4,6 +4,8 @@
  */
 use Carbon\Carbon;
 
+use Fresa\PostModel;
+
 /**
  * Sample test case.
  */
@@ -179,4 +181,23 @@ class PostModelTest extends WP_UnitTestCase
         $this->assertNull(Event::find($id));
         $this->assertNull($event->id);
     }
+
+    public function test_post_model_types_can_be_inferred()
+    {
+        $e = $this->createEvent();
+        $this->assertEquals('event', $e->getPostType());
+
+        $s = new Student;
+        $this->assertEquals('student', $s->getPostType());
+
+        $cr = new CourseRecord;
+        $this->assertEquals('course_record', $cr->getPostType());
+    }
 }
+
+/**
+ * Test class definitions
+ */
+
+class Student extends PostModel{}
+class CourseRecord extends PostModel{}

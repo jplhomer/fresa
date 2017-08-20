@@ -2,6 +2,8 @@
 
 namespace Fresa;
 
+use Illuminate\Support\Str;
+
 /**
  * Taxonomy abstract class.
  */
@@ -169,7 +171,11 @@ abstract class Taxonomy extends Model
      */
     public function getTaxonomy()
     {
-        return $this->taxonomy;
+        if (!empty($this->taxonomy)) {
+            return $this->taxonomy;
+        }
+
+        return Str::snake(static::class);
     }
 
     /**
