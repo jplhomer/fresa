@@ -10,7 +10,6 @@ Define a taxonomy by extending the base class:
 
     class EventCategory extends Taxonomy
     {
-        protected $taxonomy = 'event_category';
     }
 
 You can then interact with the taxonomy in an object-oriented fashion:
@@ -18,6 +17,23 @@ You can then interact with the taxonomy in an object-oriented fashion:
     $category = new EventCategory;
     $category->name = 'Celebrations';
     $category->save();
+
+## Defining Taxonomy Slugs
+
+By default, the snake-case version of the class name will be used as a slug to store the taxonomy terms in WordPress.
+
+    $e = new EventCategory;
+    $e->getTaxonomy(); // 'event_category'
+
+If you want to customize the taxonomy slug, set the `$taxonomy` variable on the class:
+
+
+    use Fresa\Taxonomy;
+
+    class EventCategory extends Taxonomy
+    {
+        protected $taxonomy = 'my_event_category';
+    }
 
 ## Querying Taxonomy Terms
 
