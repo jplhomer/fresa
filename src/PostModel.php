@@ -162,7 +162,7 @@ abstract class PostModel extends Model
         $postType = $this->postType;
 
         if (empty($this->postType)) {
-            return Str::snake(static::class);
+            return Str::snake((new \ReflectionClass($this))->getShortName());
         }
 
         return $postType;

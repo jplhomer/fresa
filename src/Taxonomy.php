@@ -175,7 +175,7 @@ abstract class Taxonomy extends Model
             return $this->taxonomy;
         }
 
-        return Str::snake(static::class);
+        return Str::snake((new \ReflectionClass(static::class))->getShortName());
     }
 
     /**

@@ -192,6 +192,9 @@ class PostModelTest extends WP_UnitTestCase
 
         $cr = new CourseRecord;
         $this->assertEquals('course_record', $cr->getPostType());
+
+        $bar = new Foo\Bar;
+        $this->assertEquals('bar', $bar->getPostType());
     }
 }
 
