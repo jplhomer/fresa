@@ -117,6 +117,9 @@ class TaxonomyTest extends WP_UnitTestCase
 
         $d = new DevelopmentType;
         $this->assertEquals('development_type', $d->getTaxonomy());
+
+        $f = new Foo\Far;
+        $this->assertEquals('far', $f->getTaxonomy());
     }
 }
 
