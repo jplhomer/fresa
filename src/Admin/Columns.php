@@ -109,7 +109,9 @@ class Columns
         $instance = $this->model::find($id);
 
         // Allow third-party plugins to render their own custom columns downstream
-        if (empty($this->args['columns'][$column])) return;
+        if (empty($this->args['columns'][$column])) {
+            return;
+        }
 
         $settings = $this->args['columns'][$column];
         if (!empty($settings['value']) && is_callable($settings['value'])) {
