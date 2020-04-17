@@ -42,7 +42,7 @@ abstract class PostModel extends Model
      */
     protected function insertModel()
     {
-        $args = ['post_type' => $this->getPostType()] + $this->getDefaultValues();
+        $args = ['post_type' => $this->getPostType()] + $this->getDefaultValues() + ['meta_input' => $this->getMetaFields()];
         $id = wp_insert_post($args, true);
 
         if (is_wp_error($id)) {
@@ -56,12 +56,18 @@ abstract class PostModel extends Model
 
     /**
      * Save default post fields.
+     * This model is actually capable of doing default fields and meta all at once.
      *
      * @return self
      */
     protected function persistDefaultFields()
     {
-        $args = ['ID' => $this->id] + $this->getDefaultValues();
+        $this->persistModel();
+    }
+
+    protected function persistModel()
+    {
+        $args = ['ID' => $this->id] + $this->getDefaultValues() + ['meta_input' => $this->getMetaFields()];
         wp_update_post($args);
 
         return $this;
@@ -74,10 +80,7 @@ abstract class PostModel extends Model
      */
     protected function persistMetaFields()
     {
-        collect($this->attributes)->except($this->default)->keys()->each(function ($key) {
-            update_post_meta($this->id, $key, $this->attributes[$key]);
-        });
-
+        // This is handled with the default fields, deferring to WP core functions
         return $this;
     }
 
@@ -109,6 +112,16 @@ abstract class PostModel extends Model
             'status'  => $object->post_status,
             'excerpt' => $object->post_excerpt,
         ]);
+    }
+
+    /**
+     * Collect only post meta fields from the instance's attributes
+     * 
+     * @return array of post meta fields
+     */
+    protected function getMetaFields()
+    {
+        return collect($this->attributes)->except($this->default);
     }
 
     /**
