@@ -60,3 +60,26 @@ composer require jplhomer/fresa
 ```
 
 **[Read the full documentation here](https://fresa.jplhomer.org)**.
+
+## Development
+
+```sh
+composer install
+```
+
+### Running Tests
+
+First, set up the required WordPress testing library on your machine:
+
+```bash
+# Replace db-name, db-user, db-pass with arguments of a database to be created
+# If you already have a database, pass `true` to the last argument, e.g.
+# wptests root '' 127.0.0.1 latest true
+./bin/install-wp-tests.sh <db-name> <db-user> <db-pass> [db-host] [wp-version] [skip-database-creation]
+```
+
+Run tests using PHPUnit:
+
+```bash
+vendor/bin/phpunit
+```
