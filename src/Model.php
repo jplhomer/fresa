@@ -68,8 +68,15 @@ abstract class Model
     }
 
     /**
+     * Insert fresh model into the database
+     * 
+     * @return self
+     */
+    abstract protected function insertModel();
+
+    /**
      * Persist the WP Post fields to the database.
-     *
+     * 
      * @return self
      */
     abstract protected function persistDefaultFields();
