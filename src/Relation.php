@@ -12,24 +12,27 @@ abstract class Relation
     /**
      * Store the parent instance.
      *
-     * @var Parent
+     * @var \Fresa\Taxonomy
      */
     protected $parent;
 
     /**
      * Store the related instance.
      *
-     * @var mixed
+     * @var object
      */
     protected $related;
 
     /**
      * Cache of objects in relationship.
      *
-     * @var Collection
+     * @var \Illuminate\Support\Collection
      */
     protected $objects;
 
+    /**
+     * @param class-string $related
+     */
     public function __construct(Model $parent, $related)
     {
         if (!$parent->exists) {
@@ -66,7 +69,7 @@ abstract class Relation
     /**
      * Save all objects in relationship to the DB.
      *
-     * @param mixed Item to save to the relationship
+     * @param \Fresa\Taxonomy $item Item to save to the relationship
      *
      * @return self
      */

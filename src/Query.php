@@ -10,16 +10,9 @@ class Query
     /**
      * Model.
      *
-     * @var Model
+     * @var \Fresa\Model
      */
     protected $model;
-
-    /**
-     * The class definition of the passed model instance.
-     *
-     * @var Class
-     */
-    protected $modelClass;
 
     /**
      * Build up the query object.
@@ -31,7 +24,7 @@ class Query
     /**
      * Default model keys, aka not meta keys.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $defaultModelKeys = [
         'post_title',
@@ -42,7 +35,7 @@ class Query
     /**
      * Initiate a new query, passing in an instance of the model.
      *
-     * @param Model $model Instance of a model
+     * @param \Fresa\Model $model Instance of a model
      */
     public function __construct(Model $model, $args = [])
     {
@@ -58,9 +51,7 @@ class Query
     /**
      * Add a where clause to the query.
      *
-     * @param string $key     Key
-     * @param string $compare Comparator
-     * @param mixed  $value   Value to compare
+     * @param mixed ...$args Key, Value to compare, Comparator
      *
      * @return self
      */
@@ -152,7 +143,7 @@ class Query
     /**
      * Get the results of the query.
      *
-     * @return Collection
+     * @return \Illuminate\Support\Collection
      */
     public function get()
     {

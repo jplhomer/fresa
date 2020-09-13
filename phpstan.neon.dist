@@ -1,0 +1,16 @@
+#$ composer require --dev szepeviktor/phpstan-wordpress
+#$ vendor/bin/phpstan analyze
+
+includes:
+    - vendor/szepeviktor/phpstan-wordpress/extension.neon
+parameters:
+#    level: max
+#    level: 4
+    level: 2
+    inferPrivatePropertyTypeFromConstructor: true
+    paths:
+        - src/
+    ignoreErrors:
+        # TODO
+        - '#^Unsafe usage of new static#'
+        - '#^Access to an undefined property Fresa\\#'

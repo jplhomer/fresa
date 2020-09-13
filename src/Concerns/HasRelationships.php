@@ -40,9 +40,9 @@ trait HasRelationships
     /**
      * Define a new relationship.
      *
-     * @param Class $taxonomy Taxonomy class
+     * @param \Fresa\Taxonomy $taxonomy Taxonomy class
      *
-     * @return Relation The Relation instance
+     * @return \Fresa\Relation The Relation instance
      */
     public function hasTaxonomy($taxonomy)
     {
@@ -55,9 +55,9 @@ trait HasRelationships
     /**
      * Define new belongsTo relationship.
      *
-     * @param Class $model Model
+     * @param \Fresa\Model $model Model
      *
-     * @return Relation
+     * @return \Fresa\Relation
      */
     public function belongsToPost($model)
     {

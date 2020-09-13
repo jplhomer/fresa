@@ -14,14 +14,14 @@ abstract class Taxonomy extends Model
     /**
      * The taxonomy slug for this class.
      *
-     * @var [type]
+     * @var string
      */
     protected $taxonomy = '';
 
     /**
      * The default keys on a Taxonomy.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $default = [
         'name',
@@ -83,7 +83,7 @@ abstract class Taxonomy extends Model
      *
      * @param int $id Category ID
      *
-     * @return Category
+     * @return \Fresa\Taxonomy
      */
     public function newFromObjectId($id)
     {
@@ -93,14 +93,14 @@ abstract class Taxonomy extends Model
     /**
      * Get a new instance from an object.
      *
-     * @param WP Category $object
+     * @param \WP_Term $object
      *
-     * @return Category, or null
+     * @return \Fresa\Taxonomy|null
      */
     public function newFromObject($object)
     {
         if (empty($object)) {
-            return;
+            return null;
         }
 
         return new static([
@@ -124,7 +124,7 @@ abstract class Taxonomy extends Model
     /**
      * Get all terms in a taxonomy.
      *
-     * @return Collection
+     * @return \Illuminate\Support\Collection
      */
     public static function all()
     {
@@ -184,7 +184,7 @@ abstract class Taxonomy extends Model
      * @param string $key   Key
      * @param mixed  $value Value
      *
-     * @return Collection
+     * @return \Illuminate\Support\Collection
      */
     public static function where($key, $value)
     {
