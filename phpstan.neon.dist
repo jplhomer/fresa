@@ -1,4 +1,4 @@
-#$ composer update --optimize-autoloader
+#$ composer require --dev szepeviktor/phpstan-wordpress
 #$ vendor/bin/phpstan analyze
 
 includes:
