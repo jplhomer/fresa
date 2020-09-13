@@ -89,7 +89,7 @@ abstract class Model
     /**
      * Validate the current model for required keys.
      *
-     * @throws Exception If validation fails
+     * @throws \Exception If validation fails
      *
      * @return bool Passes validation
      */
@@ -188,7 +188,7 @@ abstract class Model
     /**
      * Get all models in the database.
      *
-     * @return Collection
+     * @return \Illuminate\Support\Collection
      */
     abstract public static function all();
 

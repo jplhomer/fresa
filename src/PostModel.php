@@ -36,7 +36,7 @@ abstract class PostModel extends Model
     /**
      * Inserts a post into the WP DB.
      *
-     * @throws Exception if invalid data
+     * @throws \Exception if invalid data
      *
      * @return self
      */
@@ -62,7 +62,7 @@ abstract class PostModel extends Model
      */
     protected function persistDefaultFields()
     {
-        $this->persistModel();
+        return $this->persistModel();
     }
 
     protected function persistModel()
@@ -152,7 +152,7 @@ abstract class PostModel extends Model
 
         wp_delete_post($this->id);
 
-        parent::delete();
+        return parent::delete();
     }
 
     /**
@@ -188,9 +188,11 @@ abstract class PostModel extends Model
      */
     public function permalink()
     {
-        if ($this->exists) {
-            return get_permalink($this->id);
+        if (!$this->exists) {
+            return false;
         }
+
+        return get_permalink($this->id);
     }
 
     /**

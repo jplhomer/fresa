@@ -34,7 +34,7 @@ class HasTaxonomy extends Relation
     /**
      * Save all objects in relationship to the DB.
      *
-     * @param Taxonomy $term Optional term to be passed in before save
+     * @param \Fresa\Taxonomy $term Optional term to be passed in before save
      *
      * @return self
      */

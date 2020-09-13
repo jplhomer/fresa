@@ -85,7 +85,7 @@ trait CastsAttributes
     /**
      * Cast Carbon instance to timestamp.
      *
-     * @param Carbon $date Date
+     * @param \Carbon\Carbon $value Date
      *
      * @return string Date Time Stamp
      */
